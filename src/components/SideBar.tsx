@@ -1,9 +1,10 @@
+import { useMemo } from "react";
 import { Button } from "./Button";
 
 interface SideBarProps {
   genres: Array<{
     id: number;
-    name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
+    name: "action" | "comedy" | "documentary" | "drama" | "horror" | "family";
     title: string;
   }>;
   selectedGenreId: number;
@@ -13,14 +14,20 @@ interface SideBarProps {
 export function SideBar({
   genres,
   selectedGenreId,
-  buttonClickCallback
+  buttonClickCallback,
 }: SideBarProps) {
+  const allGenres = useMemo(() => {
+    return genres;
+  }, [genres]);
+
   return (
     <nav className="sidebar">
-      <span>Watch<p>Me</p></span>
+      <span>
+        Watch<p>Me</p>
+      </span>
 
       <div className="buttons-container">
-        {genres.map(genre => (
+        {allGenres.map((genre) => (
           <Button
             key={String(genre.id)}
             title={genre.title}
@@ -30,7 +37,6 @@ export function SideBar({
           />
         ))}
       </div>
-
     </nav>
-  )
+  );
 }
